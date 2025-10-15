@@ -1,20 +1,71 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Task Dashboard</title>
-</head>
-<body>
-    <h1>My Tasks</h1>
-    <p>Total: {{ total_tasks }}</p>
-    <p>Pending: {{ pending_tasks }}</p>
-    <p>Completed: {{ completed_tasks }}</p>
+{% extends 'base.html' %}
+{% load static %}
 
-    <ul>
-        {% for task in tasks %}
-            <li>{{ task.title }} — {{ task.status }}</li>
-        {% empty %}
-            <li>No tasks available.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% block title %}Home - Hangarin{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Welcome to Hangarin</div>
+                <div class="card-category">Your Personal Task & To-Do Manager</div>
+            </div>
+            <div class="card-body">
+                <h5>Manage your tasks efficiently with Hangarin!</h5>
+                <p class="mt-3">
+                    Hangarin helps you organize your daily tasks, manage priorities, 
+                    add notes, and break down large goals into smaller subtasks.
+                </p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="card text-center bg-light">
+                            <div class="card-body">
+                                <h3 class="card-title text-primary">{{ total_tasks }}</h3>
+                                <p class="card-text">Total Tasks</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center bg-light">
+                            <div class="card-body">
+                                <h3 class="card-title text-warning">{{ pending_tasks }}</h3>
+                                <p class="card-text">Pending Tasks</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center bg-light">
+                            <div class="card-body">
+                                <h3 class="card-title text-success">{{ completed_tasks }}</h3>
+                                <p class="card-text">Completed Tasks</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center bg-light">
+                            <div class="card-body">
+                                <h3 class="card-title text-info">{{ categories_count }}</h3>
+                                <p class="card-text">Categories</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="/admin/tasks/task/add/" class="btn btn-primary me-2">
+                        <i class="fas fa-plus"></i> Add New Task
+                    </a>
+                    <a href="{% url 'task-list' %}" class="btn btn-outline-primary me-2">
+                        View All Tasks
+                    </a>
+                    <a href="/admin" class="btn btn-outline-secondary">
+                        Go to Admin
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

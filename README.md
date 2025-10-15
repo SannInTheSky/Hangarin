@@ -4,7 +4,7 @@
  that helps users efficiently organize their daily tasks, manage priorities, 
  add notes, and break down large goals into manageable subtasks.
 
- ## Features
+ ## Features ⋆౨ৎ˚⟡˖ ࣪
 - **Task Management**: Create, edit, and organize daily tasks
 - **Priority System**: Manage task priorities to focus on what matters most
 - **Note Taking**: Add and organize notes alongside your tasks

@@ -11,4 +11,4 @@
 - **Goal Breakdown**: Divide large goals into smaller, achievable subtasks
 - **Simple Interface**: Clean and user-friendly design for easy navigation
 
-Author: Grace Ann Cornel
+**Author**: Grace Ann Cornel

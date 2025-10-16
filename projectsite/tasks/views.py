@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Task, Category, Priority
 
 class HomePageView(ListView):
@@ -17,7 +18,7 @@ class HomePageView(ListView):
 
 class TaskListView(ListView):
     model = Task
-    template_name = "task_list.html"
+    template_name = "tasks/task_list.html"
     context_object_name = 'tasks'
     paginate_by = 10
     
@@ -26,10 +27,16 @@ class TaskListView(ListView):
 
 class CategoryListView(ListView):
     model = Category
-    template_name = "category_list.html"
+    template_name = "tasks/category_list.html"
     context_object_name = 'categories'
 
 class PriorityListView(ListView):
     model = Priority
-    template_name = "priority_list.html"
+    template_name = "tasks/priority_list.html"
     context_object_name = 'priorities'
+
+class TaskCreateView(CreateView):
+    model = Task
+    fields = ['title', 'description', 'status', 'category', 'priority', 'due_date']
+    template_name = 'tasks/task_form.html'
+    success_url = reverse_lazy('task-list')

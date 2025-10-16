@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Task, Category, Priority
+from .models import Task, Category, Priority, SubTask, Note
 
 class SubTaskInline(admin.TabularInline):
     model = SubTask
@@ -15,7 +15,7 @@ class NoteInline(admin.StackedInline):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ("title", "status", "deadline", "priority", "category")
+    list_display = ("title", "status", "due_date", "priority", "category")  # Changed 'deadline' to 'due_date'
     list_filter = ("status", "priority", "category")
     search_fields = ("title", "description")
     inlines = [SubTaskInline, NoteInline]
@@ -32,16 +32,20 @@ class SubTaskAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("name",)
+    list_display = ("name", "description")
     search_fields = ("name",)
 
 @admin.register(Priority)
 class PriorityAdmin(admin.ModelAdmin):
-    list_display = ("name",)
+    list_display = ("name", "level", "description")
     search_fields = ("name",)
 
 @admin.register(Note)
 class NoteAdmin(admin.ModelAdmin):
-    list_display = ("task", "content", "created_at")
+    list_display = ("task", "content_preview", "created_at")
     list_filter = ("created_at",)
     search_fields = ("content",)
+    
+    def content_preview(self, obj):
+        return obj.content[:50] + "..." if len(obj.content) > 50 else obj.content
+    content_preview.short_description = "Content"

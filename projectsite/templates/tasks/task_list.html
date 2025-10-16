@@ -2,17 +2,20 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>Task List</h1>
+    <h1><i class="fas fa-tasks me-2"></i>My Tasks</h1>
     <a href="{% url 'task-create' %}" class="btn btn-primary">
         <i class="fas fa-plus me-1"></i> Add New Task
     </a>
 </div>
 
 <div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0"><i class="fas fa-list me-2"></i>All Your Tasks</h5>
+    </div>
     <div class="card-body">
         {% if tasks %}
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -28,19 +31,19 @@
                         {% for task in tasks %}
                         <tr>
                             <td>{{ task.title }}</td>
-                            <td>{{ task.description|truncatewords:10|default:"-" }}</td>
+                            <td>{{ task.description|truncatewords:10|default:"No description" }}</td>
                             <td>
                                 <span class="badge {% if task.status == 'Completed' %}bg-success{% elif task.status == 'In Progress' %}bg-primary{% else %}bg-warning{% endif %}">
                                     {{ task.status }}
                                 </span>
                             </td>
                             <td>
-                                <span class="badge {% if task.priority.name == 'High' %}bg-danger{% elif task.priority.name == 'Medium' %}bg-warning{% else %}bg-secondary{% endif %}">
+                                <span class="badge {% if task.priority.name == 'High' %}bg-danger{% elif task.priority.name == 'Medium' %}bg-warning{% else %}bg-primary{% endif %}">
                                     {{ task.priority.name }}
                                 </span>
                             </td>
                             <td>{{ task.category.name }}</td>
-                            <td>{{ task.due_date|default:"-" }}</td>
+                            <td>{{ task.due_date|default:"No deadline" }}</td>
                             <td>
                                 <a href="#" class="btn btn-sm btn-outline-primary">
                                     <i class="fas fa-edit"></i>
@@ -56,7 +59,8 @@
             </div>
         {% else %}
             <div class="text-center py-4">
-                <p class="text-muted">No tasks available.</p>
+                <i class="fas fa-tasks fa-3x text-muted mb-3"></i>
+                <p class="text-muted">No tasks available yet!</p>
                 <a href="{% url 'task-create' %}" class="btn btn-primary">
                     <i class="fas fa-plus me-1"></i> Create Your First Task
                 </a>

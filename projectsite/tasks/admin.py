@@ -15,7 +15,7 @@ class NoteInline(admin.StackedInline):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ("title", "status", "due_date", "priority", "category")  # Changed 'deadline' to 'due_date'
+    list_display = ("title", "status", "due_date", "priority", "category")
     list_filter = ("status", "priority", "category")
     search_fields = ("title", "description")
     inlines = [SubTaskInline, NoteInline]

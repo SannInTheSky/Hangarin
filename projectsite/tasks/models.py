@@ -9,7 +9,7 @@ class Category(models.Model):
 
 class Priority(models.Model):
     name = models.CharField(max_length=50)
-    level = models.IntegerField()
+    level = models.IntegerField(default=1)
     description = models.TextField(blank=True)
     
     def __str__(self):

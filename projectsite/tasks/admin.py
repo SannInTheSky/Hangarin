@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Task, Category, Priority, Note, SubTask
+from .models import Task, Category, Priority
 
 class SubTaskInline(admin.TabularInline):
     model = SubTask

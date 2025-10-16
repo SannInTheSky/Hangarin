@@ -293,3 +293,19 @@ body {
     background: var(--primary-color);
     color: white;
 }
+
+.page-item.active .page-link {
+    background: linear-gradient(135deg, var(--primary-pink) 0%, var(--dark-pink) 100%);
+    border-color: var(--primary-pink);
+}
+
+.page-link {
+    color: var(--dark-pink);
+    border: 1px solid var(--soft-pink);
+}
+
+.page-link:hover {
+    background-color: var(--soft-pink);
+    border-color: var(--primary-pink);
+    color: var(--dark-pink);
+}

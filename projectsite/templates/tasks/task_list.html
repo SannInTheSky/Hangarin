@@ -8,9 +8,56 @@
     </a>
 </div>
 
+<!-- Search and Sort Controls -->
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Search Form -->
+                <form method="get" class="d-flex">
+                    <input type="text" name="q" class="form-control me-2" 
+                           placeholder="Search tasks..." value="{{ search_query }}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search me-1"></i> Search
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <!-- Sort Form -->
+                <form method="get" class="d-flex align-items-center">
+                    <input type="hidden" name="q" value="{{ search_query }}">
+                    <label class="me-2 mb-0"><i class="fas fa-sort me-1"></i>Sort by:</label>
+                    <select name="sort_by" class="form-select me-2" onchange="this.form.submit()">
+                        <option value="-created_at" {% if current_sort == '-created_at' %}selected{% endif %}>Newest First</option>
+                        <option value="created_at" {% if current_sort == 'created_at' %}selected{% endif %}>Oldest First</option>
+                        <option value="title" {% if current_sort == 'title' %}selected{% endif %}>Title A-Z</option>
+                        <option value="-title" {% if current_sort == '-title' %}selected{% endif %}>Title Z-A</option>
+                        <option value="due_date" {% if current_sort == 'due_date' %}selected{% endif %}>Due Date (Soonest)</option>
+                        <option value="-due_date" {% if current_sort == '-due_date' %}selected{% endif %}>Due Date (Latest)</option>
+                        <option value="status" {% if current_sort == 'status' %}selected{% endif %}>Status</option>
+                        <option value="priority__name" {% if current_sort == 'priority__name' %}selected{% endif %}>Priority</option>
+                        <option value="category__name" {% if current_sort == 'category__name' %}selected{% endif %}>Category</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+        {% if search_query %}
+        <div class="mt-2">
+            <span class="text-muted">Search results for: "{{ search_query }}"</span>
+            <a href="{% url 'task-list' %}" class="btn btn-sm btn-outline-secondary ms-2">
+                <i class="fas fa-times me-1"></i> Clear
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
 <div class="card">
     <div class="card-header">
-        <h5 class="card-title mb-0"><i class="fas fa-list me-2"></i>All Your Tasks</h5>
+        <h5 class="card-title mb-0">
+            <i class="fas fa-list me-2"></i>All Your Tasks 
+            <span class="badge bg-primary ms-2">{{ tasks.paginator.count }}</span>
+        </h5>
     </div>
     <div class="card-body">
         {% if tasks %}
@@ -43,7 +90,17 @@
                                 </span>
                             </td>
                             <td>{{ task.category.name }}</td>
-                            <td>{{ task.due_date|default:"No deadline" }}</td>
+                            <td>
+                                {% if task.due_date %}
+                                    {% if task.due_date < today %}
+                                        <span class="text-danger">{{ task.due_date }}</span>
+                                    {% else %}
+                                        {{ task.due_date }}
+                                    {% endif %}
+                                {% else %}
+                                    No deadline
+                                {% endif %}
+                            </td>
                             <td>
                                 <a href="#" class="btn btn-sm btn-outline-primary">
                                     <i class="fas fa-edit"></i>
@@ -57,10 +114,53 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Pagination -->
+            {% if tasks.has_other_pages %}
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if tasks.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort != '-created_at' %}&sort_by={{ current_sort }}{% endif %}">
+                            <i class="fas fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ tasks.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort != '-created_at' %}&sort_by={{ current_sort }}{% endif %}">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    <li class="page-item active">
+                        <span class="page-link">Page {{ tasks.number }} of {{ tasks.paginator.num_pages }}</span>
+                    </li>
+
+                    {% if tasks.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ tasks.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort != '-created_at' %}&sort_by={{ current_sort }}{% endif %}">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ tasks.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort != '-created_at' %}&sort_by={{ current_sort }}{% endif %}">
+                            <i class="fas fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
         {% else %}
             <div class="text-center py-4">
                 <i class="fas fa-tasks fa-3x text-muted mb-3"></i>
-                <p class="text-muted">No tasks available yet!</p>
+                <p class="text-muted">
+                    {% if search_query %}
+                    No tasks found matching "{{ search_query }}"
+                    {% else %}
+                    No tasks available yet!
+                    {% endif %}
+                </p>
                 <a href="{% url 'task-create' %}" class="btn btn-primary">
                     <i class="fas fa-plus me-1"></i> Create Your First Task
                 </a>

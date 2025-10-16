@@ -4,37 +4,52 @@
 <div class="row">
     <div class="col-md-12 text-center mb-4">
         <h1 class="display-4"><i class="fas fa-heart text-danger me-2"></i>Welcome to Hangarin!<i class="fas fa-heart text-danger ms-2"></i></h1>
-        <p class="lead">Your reliable task management!</p>
+        <p class="lead">Your beautiful task management system</p>
     </div>
 </div>
 
+<!-- Enhanced Dashboard Stats -->
 <div class="row mb-4">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="stat-card" style="background: linear-gradient(135deg, #ffb6c1 0%, #db7093 100%);">
             <div class="number">{{ total_tasks }}</div>
             <div class="label">Total Tasks</div>
             <i class="fas fa-tasks fa-2x mt-2"></i>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="stat-card" style="background: linear-gradient(135deg, #fffacd 0%, #ffd700 100%); color: #666;">
             <div class="number">{{ pending_tasks }}</div>
-            <div class="label">Pending Tasks</div>
+            <div class="label">Pending</div>
             <i class="fas fa-clock fa-2x mt-2"></i>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="stat-card" style="background: linear-gradient(135deg, #98fb98 0%, #32cd32 100%);">
             <div class="number">{{ completed_tasks }}</div>
-            <div class="label">Completed Tasks</div>
+            <div class="label">Completed</div>
             <i class="fas fa-check-circle fa-2x mt-2"></i>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="stat-card" style="background: linear-gradient(135deg, #e0ffff 0%, #afeeee 100%); color: #666;">
             <div class="number">{{ categories_count }}</div>
             <div class="label">Categories</div>
             <i class="fas fa-tags fa-2x mt-2"></i>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="stat-card" style="background: linear-gradient(135deg, #dda0dd 0%, #ba55d3 100%);">
+            <div class="number">{{ priorities_count }}</div>
+            <div class="label">Priorities</div>
+            <i class="fas fa-star fa-2x mt-2"></i>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="stat-card" style="background: linear-gradient(135deg, #ffb6c1 0%, #ff69b4 100%);">
+            <div class="number">{{ tasks_this_month }}</div>
+            <div class="label">This Month</div>
+            <i class="fas fa-calendar fa-2x mt-2"></i>
         </div>
     </div>
 </div>
@@ -87,7 +102,7 @@
                 {% else %}
                     <div class="text-center py-4">
                         <i class="fas fa-cloud fa-3x text-muted mb-3"></i>
-                        <p class="text-muted">No tasks yet! Time to create your first adorable task!</p>
+                        <p class="text-muted">No tasks yet! Time to create your first task!</p>
                         <a href="{% url 'task-create' %}" class="btn btn-primary">
                             <i class="fas fa-plus me-1"></i> Create Your First Task
                         </a>

@@ -2,70 +2,39 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-12">
-        <h1 class="mb-4">Task Management Dashboard</h1>
+    <div class="col-md-12 text-center mb-4">
+        <h1 class="display-4"><i class="fas fa-heart text-danger me-2"></i>Welcome to Sweet Tasks!<i class="fas fa-heart text-danger ms-2"></i></h1>
+        <p class="lead">Your adorable task management companion</p>
     </div>
 </div>
 
 <div class="row mb-4">
     <div class="col-md-3">
-        <div class="card text-white bg-primary">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h4 class="card-title">{{ total_tasks }}</h4>
-                        <p class="card-text">Total Tasks</p>
-                    </div>
-                    <div class="align-self-center">
-                        <i class="fas fa-tasks fa-2x"></i>
-                    </div>
-                </div>
-            </div>
+        <div class="stat-card" style="background: linear-gradient(135deg, #ffb6c1 0%, #db7093 100%);">
+            <div class="number">{{ total_tasks }}</div>
+            <div class="label">Total Tasks</div>
+            <i class="fas fa-tasks fa-2x mt-2"></i>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card text-white bg-warning">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h4 class="card-title">{{ pending_tasks }}</h4>
-                        <p class="card-text">Pending Tasks</p>
-                    </div>
-                    <div class="align-self-center">
-                        <i class="fas fa-clock fa-2x"></i>
-                    </div>
-                </div>
-            </div>
+        <div class="stat-card" style="background: linear-gradient(135deg, #fffacd 0%, #ffd700 100%); color: #666;">
+            <div class="number">{{ pending_tasks }}</div>
+            <div class="label">Pending Tasks</div>
+            <i class="fas fa-clock fa-2x mt-2"></i>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card text-white bg-success">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h4 class="card-title">{{ completed_tasks }}</h4>
-                        <p class="card-text">Completed Tasks</p>
-                    </div>
-                    <div class="align-self-center">
-                        <i class="fas fa-check-circle fa-2x"></i>
-                    </div>
-                </div>
-            </div>
+        <div class="stat-card" style="background: linear-gradient(135deg, #98fb98 0%, #32cd32 100%);">
+            <div class="number">{{ completed_tasks }}</div>
+            <div class="label">Completed Tasks</div>
+            <i class="fas fa-check-circle fa-2x mt-2"></i>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card text-white bg-info">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h4 class="card-title">{{ categories_count }}</h4>
-                        <p class="card-text">Categories</p>
-                    </div>
-                    <div class="align-self-center">
-                        <i class="fas fa-tags fa-2x"></i>
-                    </div>
-                </div>
-            </div>
+        <div class="stat-card" style="background: linear-gradient(135deg, #e0ffff 0%, #afeeee 100%); color: #666;">
+            <div class="number">{{ categories_count }}</div>
+            <div class="label">Categories</div>
+            <i class="fas fa-tags fa-2x mt-2"></i>
         </div>
     </div>
 </div>
@@ -74,12 +43,12 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">Recent Tasks</h5>
+                <h5 class="card-title mb-0"><i class="fas fa-list me-2"></i>Recent Tasks</h5>
             </div>
             <div class="card-body">
                 {% if tasks %}
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Title</th>
@@ -98,17 +67,31 @@
                                             {{ task.status }}
                                         </span>
                                     </td>
-                                    <td>{{ task.priority.name }}</td>
+                                    <td>
+                                        <span class="badge {% if task.priority.name == 'High' %}bg-danger{% elif task.priority.name == 'Medium' %}bg-warning{% else %}bg-primary{% endif %}">
+                                            {{ task.priority.name }}
+                                        </span>
+                                    </td>
                                     <td>{{ task.category.name }}</td>
-                                    <td>{{ task.due_date|default:"-" }}</td>
+                                    <td>{{ task.due_date|default:"No deadline" }}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
-                    <a href="{% url 'task-list' %}" class="btn btn-primary mt-3">View All Tasks</a>
+                    <div class="text-center mt-3">
+                        <a href="{% url 'task-list' %}" class="btn btn-primary">
+                            <i class="fas fa-list me-1"></i> View All Tasks
+                        </a>
+                    </div>
                 {% else %}
-                    <p class="text-muted">No tasks available. Create your first task to get started!</p>
+                    <div class="text-center py-4">
+                        <i class="fas fa-cloud fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No tasks yet! Time to create your first adorable task!</p>
+                        <a href="{% url 'task-create' %}" class="btn btn-primary">
+                            <i class="fas fa-plus me-1"></i> Create Your First Task
+                        </a>
+                    </div>
                 {% endif %}
             </div>
         </div>

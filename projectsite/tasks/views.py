@@ -4,7 +4,7 @@ from .models import Task, Category, Priority
 
 class HomePageView(ListView):
     model = Task
-    context_object_name = 'home'
+    context_object_name = 'tasks'
     template_name = "home.html"
     
     def get_context_data(self, **kwargs):

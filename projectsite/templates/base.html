@@ -1,47 +1,92 @@
 {% load static %}
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hangarin - Task Manager{% endblock %}</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong>Hangarin</strong>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'task-list' %}">
+                            <i class="fas fa-tasks me-1"></i> Tasks
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'category-list' %}">
+                            <i class="fas fa-folder me-1"></i> Categories
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">
+                            <i class="fas fa-cog me-1"></i> Admin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<title>Typography - Ready Bootstrap Dashboard</title>
-<title>{% block title %}Hangarin{% endblock %}</title>
+    <!-- Main Content -->
+    <main class="container-fluid main-content">
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-3" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
 
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
 
-<link rel="stylesheet" href="assets/css/ready.css">
-<link rel="stylesheet" href="assets/css/demo.css">
-<link rel="stylesheet" href="{% static 'css/ready.css' %}">
-<link rel="stylesheet" href="{% static 'css/demo.css' %}">
+    <!-- Footer -->
+    <footer class="footer-custom">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 Hangarin Task Manager. Made with <i class="fas fa-heart text-danger"></i></p>
+        </div>
+    </footer>
 
-<script src="assets/js/core/jquery.3.2.1.min.js"></script>
-<script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-<script src="assets/js/core/popper.min.js"></script>
-<script src="assets/js/core/bootstrap.min.js"></script>
-<script src="assets/js/plugin/chartist/chartist.min.js"></script>
-<script src="assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
-<script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-<script src="assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
-<script src="assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
-<script src="assets/js/plugin/chart-circle/circles.min.js"></script>
-<script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-<script src="assets/js/ready.min.js"></script>
-<script src="{% static 'js/core/jquery.3.2.1.min.js' %}"></script>
-<script src="{% static 'js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js' %}"></script>
-<script src="{% static 'js/core/popper.min.js' %}"></script>
-<script src="{% static 'js/core/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/plugin/chartist/chartist.min.js' %}"></script>
-<script src="{% static 'js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js' %}"></script>
-<script src="{% static 'js/plugin/bootstrap-notify/bootstrap-notify.min.js' %}"></script>
-<script src="{% static 'js/plugin/bootstrap-toggle/bootstrap-toggle.min.js' %}"></script>
-<script src="{% static 'js/plugin/jquery-mapael/jquery.mapael.min.js' %}"></script>
-<script src="{% static 'js/plugin/jquery-mapael/maps/world_countries.min.js' %}"></script>
-<script src="{% static 'js/plugin/chart-circle/circles.min.js' %}"></script>
-<script src="{% static 'js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
-<script src="{% static 'js/ready.min.js' %}"></script>
-
-<div class="main-panel">
-    {% block content %}
-    {% endblock %}
-    <div class="content">
-    ... (all codes in content div)
-    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{% static 'js/custom.js' %}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

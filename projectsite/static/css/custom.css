@@ -1,80 +1,116 @@
-/* Custom styles for Hangarin */
+/* Simple Pink Theme for Hangarin */
+:root {
+    --primary-pink: #ff69b4;
+    --light-pink: #ffb6c1;
+    --soft-pink: #fff0f5;
+}
+
 body {
-    background-color: #f8f9fa;
+    background-color: #fafafa;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--primary-pink) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .navbar-brand {
     font-weight: bold;
-    font-size: 1.5rem;
+    color: white !important;
 }
 
-.card {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.card-header {
-    background-color: #f8f9fa;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-    padding: 1rem 1.25rem;
-}
-
-.card-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-}
-
-.card-category {
-    color: #6c757d;
-    font-size: 0.875rem;
-}
-
-.table th {
-    border-top: none;
-    font-weight: 600;
-    background-color: #f8f9fa;
-}
-
-.badge {
-    font-size: 0.75rem;
-    padding: 0.375em 0.75em;
-}
-
-/* Status badge colors */
-.badge.bg-success { background-color: #28a745 !important; }
-.badge.bg-warning { background-color: #ffc107 !important; color: #000 !important; }
-.badge.bg-secondary { background-color: #6c757d !important; }
-.badge.bg-danger { background-color: #dc3545 !important; }
-.badge.bg-info { background-color: #17a2b8 !important; }
-
-/* Hover effects */
-.card:hover {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    transition: box-shadow 0.15s ease-in-out;
+.nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .nav-link:hover {
-    color: #fff !important;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 0.25rem;
+    color: white !important;
 }
 
-/* Responsive improvements */
-@media (max-width: 768px) {
-    .container {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-    
-    .card-body {
-        padding: 1rem;
-    }
-    
-    .table-responsive {
-        font-size: 0.875rem;
-    }
+/* Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(255, 105, 180, 0.1);
+    margin-bottom: 20px;
 }
+
+.card-header {
+    background-color: var(--primary-pink);
+    color: white;
+    border-radius: 10px 10px 0 0 !important;
+    border: none;
+}
+
+.card-title {
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-pink);
+    border-color: var(--primary-pink);
+    border-radius: 20px;
+}
+
+.btn-primary:hover {
+    background-color: #ff1493;
+    border-color: #ff1493;
+    transform: translateY(-1px);
+}
+
+.btn-outline-primary {
+    color: var(--primary-pink);
+    border-color: var(--primary-pink);
+    border-radius: 20px;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-pink);
+    border-color: var(--primary-pink);
+}
+
+/* Stats Cards */
+.stats-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(255, 105, 180, 0.1);
+    border-left: 4px solid var(--primary-pink);
+}
+
+.stats-card .card-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-pink);
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-pink);
+    color: white;
+    margin-top: 40px;
+}
+
+/* Table */
+.table th {
+    background-color: var(--soft-pink);
+    color: var(--primary-pink);
+    font-weight: 600;
+}
+
+/* Badges */
+.badge {
+    border-radius: 12px;
+    padding: 6px 12px;
+}
+
+.badge.bg-success { background-color: #28a745 !important; }
+.badge.bg-warning { background-color: #ffc107 !important; color: #000; }
+.badge.bg-secondary { background-color: #6c757d !important; }
+.badge.bg-danger { background-color: #dc3545 !important; }
+.badge.bg-info { background-color: #17a2b8 !important; }

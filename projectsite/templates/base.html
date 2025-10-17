@@ -174,6 +174,13 @@
             font-size: 1rem;
             opacity: 0.9;
         }
+
+        .user-welcome {
+            color: white;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -186,7 +193,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}">
                             <i class="fas fa-home me-1"></i> Home
@@ -208,6 +215,25 @@
                         </a>
                     </li>
                 </ul>
+                
+                <!-- Simple User Welcome & Logout -->
+                <div class="navbar-nav ms-auto align-items-center">
+                    {% if user.is_authenticated %}
+                    <span class="user-welcome">
+                        <i class="fas fa-user me-1"></i>Welcome, {{ user.username }}
+                    </span>
+                    <form method="post" action="{% url 'account_logout' %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-light btn-sm">
+                            <i class="fas fa-sign-out-alt me-1"></i>Logout
+                        </button>
+                    </form>
+                    {% else %}
+                    <a class="nav-link" href="{% url 'account_login' %}">
+                        <i class="fas fa-sign-in-alt me-1"></i> Login
+                    </a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </nav>

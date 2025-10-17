@@ -2,11 +2,12 @@
 URL configuration for projectsite project.
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from tasks.views import HomePageView, TaskListView, CategoryListView, PriorityListView, TaskCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),  # Add this line
     path('', HomePageView.as_view(), name='home'),
     path('tasks/', TaskListView.as_view(), name='task-list'),
     path('tasks/create/', TaskCreateView.as_view(), name='task-create'),

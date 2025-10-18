@@ -8,6 +8,7 @@ from tasks.views import HomePageView, TaskListView, CategoryListView, PriorityLi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('pwa.urls')),
     path('accounts/', include('allauth.urls')),  # AllAuth URLs for authentication
     path('accounts/signup/', RedirectView.as_view(url='/accounts/login/#register', permanent=False)),  # ADD THIS LINE
     path('', HomePageView.as_view(), name='home'),

@@ -126,7 +126,10 @@ LOGIN_URL = '/accounts/login/'  # Where to redirect for login
 # Updated Account configuration (using new settings)
 ACCOUNT_LOGIN_METHODS = {'email', 'username'}  # Login with username or email
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']  # Signup fields with validation
-ACCOUNT_EMAIL_VERIFICATION = 'optional'  # 'mandatory', 'optional', or 'none'
+
+# DISABLE EMAIL VERIFICATION - FIX FOR CONNECTION ERROR
+ACCOUNT_EMAIL_VERIFICATION = 'none'  # Changed from 'optional' to 'none'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Add this line
 
 # Session settings
 ACCOUNT_LOGOUT_ON_GET = False  # Change this to False for security
@@ -134,8 +137,8 @@ ACCOUNT_SESSION_REMEMBER = True  # Remember login sessions
 
 # Social account specific
 SOCIALACCOUNT_AUTO_SIGNUP = True  # Automatically sign up social users
-SOCIALACCOUNT_EMAIL_VERIFICATION = 'optional'
-SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'  # Changed from 'optional' to 'none'
+SOCIALACCOUNT_EMAIL_REQUIRED = False  # Changed from True to False
 
 # Social Account Providers
 SOCIALACCOUNT_PROVIDERS = {

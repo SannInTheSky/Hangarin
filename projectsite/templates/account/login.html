@@ -304,6 +304,7 @@
 
             <!-- Register tab -->
             <div class="tab-pane fade" id="register" role="tabpanel">
+                <!-- FIXED: Use the actual AllAuth signup URL and proper form -->
                 <form method="post" action="{% url 'account_signup' %}">
                     {% csrf_token %}
                     
@@ -329,26 +330,26 @@
 
                     <!-- Username -->
                     <div class="form-floating mb-3">
-                        <input type="text" name="username" id="registerUsername" class="form-control" placeholder="Username" required autocomplete="username" />
-                        <label for="registerUsername"><i class="fas fa-user me-2"></i>Username</label>
+                        <input type="text" name="username" id="id_username" class="form-control" placeholder="Username" required autocomplete="username" maxlength="150" />
+                        <label for="id_username"><i class="fas fa-user me-2"></i>Username</label>
                     </div>
 
                     <!-- Email -->
                     <div class="form-floating mb-3">
-                        <input type="email" name="email" id="registerEmail" class="form-control" placeholder="Email" required autocomplete="email" />
-                        <label for="registerEmail"><i class="fas fa-envelope me-2"></i>Email</label>
+                        <input type="email" name="email" id="id_email" class="form-control" placeholder="Email" required autocomplete="email" />
+                        <label for="id_email"><i class="fas fa-envelope me-2"></i>Email</label>
                     </div>
 
                     <!-- Password -->
                     <div class="form-floating mb-3">
-                        <input type="password" name="password1" id="registerPassword" class="form-control" placeholder="Password" required autocomplete="new-password" />
-                        <label for="registerPassword"><i class="fas fa-lock me-2"></i>Password</label>
+                        <input type="password" name="password1" id="id_password1" class="form-control" placeholder="Password" required autocomplete="new-password" />
+                        <label for="id_password1"><i class="fas fa-lock me-2"></i>Password</label>
                     </div>
 
                     <!-- Confirm Password -->
                     <div class="form-floating mb-4">
-                        <input type="password" name="password2" id="registerRepeatPassword" class="form-control" placeholder="Repeat Password" required autocomplete="new-password" />
-                        <label for="registerRepeatPassword"><i class="fas fa-lock me-2"></i>Repeat Password</label>
+                        <input type="password" name="password2" id="id_password2" class="form-control" placeholder="Repeat Password" required autocomplete="new-password" />
+                        <label for="id_password2"><i class="fas fa-lock me-2"></i>Repeat Password</label>
                     </div>
 
                     {% if form.errors %}
@@ -356,7 +357,7 @@
                             <i class="fas fa-exclamation-triangle me-2"></i>
                             {% for field in form %}
                                 {% for error in field.errors %}
-                                    <p class="mb-0">{{ error }}</p>
+                                    <p class="mb-0">{{ field.label }}: {{ error }}</p>
                                 {% endfor %}
                             {% endfor %}
                             {% for error in form.non_field_errors %}
@@ -386,6 +387,12 @@
                 const registerTab = new bootstrap.Tab(document.getElementById('register-tab'));
                 registerTab.show();
             }
+            
+            // Show register tab if there are signup errors
+            {% if form.errors and request.path == '/accounts/signup/' %}
+                const registerTab = new bootstrap.Tab(document.getElementById('register-tab'));
+                registerTab.show();
+            {% endif %}
         });
     </script>
 </body>

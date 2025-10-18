@@ -19,10 +19,13 @@
             min-height: 100vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
         }
 
         .auth-card {
             max-width: 450px;
+            width: 100%;
             background: #fff;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -36,6 +39,16 @@
             font-weight: bold;
             margin-bottom: 1rem;
         }
+        
+        .btn-primary {
+            background-color: #6c5ce7;
+            border-color: #6c5ce7;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5b4bc4;
+            border-color: #5b4bc4;
+        }
     </style>
 </head>
 <body>
@@ -48,6 +61,12 @@
         
         <p class="mb-4">You are about to sign in using your <strong>{{ provider.name }}</strong> account.</p>
         
+        {% if process == "connect" %}
+            <div class="alert alert-info mb-4">
+                You are connecting your {{ provider.name }} account to your existing Hangarin account.
+            </div>
+        {% endif %}
+        
         <form method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
@@ -56,6 +75,14 @@
         </form>
         
         <a href="{% url 'account_login' %}" class="btn btn-outline-secondary w-100">Cancel</a>
+        
+        {% if form.errors %}
+            <div class="alert alert-danger mt-3" role="alert">
+                {% for error in form.non_field_errors %}
+                    <p class="mb-0">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 </body>
 </html>

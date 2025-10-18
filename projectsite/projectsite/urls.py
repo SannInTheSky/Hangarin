@@ -7,7 +7,7 @@ from tasks.views import HomePageView, TaskListView, CategoryListView, PriorityLi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),  # Add this line
+    path('accounts/', include('allauth.urls')),  # AllAuth URLs for authentication
     path('', HomePageView.as_view(), name='home'),
     path('tasks/', TaskListView.as_view(), name='task-list'),
     path('tasks/create/', TaskCreateView.as_view(), name='task-create'),

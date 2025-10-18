@@ -123,18 +123,14 @@ LOGIN_REDIRECT_URL = '/'  # Redirect to home after login
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'  # Redirect to login after logout
 LOGIN_URL = '/accounts/login/'  # Where to redirect for login
 
-# Account configuration
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # Allow both username and email
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Change to 'mandatory' if you want email verification
+# Updated Account configuration (using new settings)
+ACCOUNT_LOGIN_METHODS = {'email', 'username'}  # Login with username or email
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']  # Signup fields with validation
+ACCOUNT_EMAIL_VERIFICATION = 'optional'  # 'mandatory', 'optional', or 'none'
 
 # Session settings
 ACCOUNT_LOGOUT_ON_GET = False  # Change this to False for security
 ACCOUNT_SESSION_REMEMBER = True  # Remember login sessions
-
-# Signup configuration
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True  # This is the proper way for password confirmation
 
 # Social account specific
 SOCIALACCOUNT_AUTO_SIGNUP = True  # Automatically sign up social users

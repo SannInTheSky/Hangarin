@@ -24,6 +24,8 @@
             --lavender: #e6e6fa;
             --mint: #f0fff0;
             --text-color: #5a5a5a;
+            --google-red: #db4437;
+            --github-black: #333333;
         }
         
         body {
@@ -95,21 +97,6 @@
             background: linear-gradient(135deg, var(--dark-pink) 0%, var(--primary-pink) 100%);
         }
 
-        .btn-outline-secondary {
-            border: 2px solid var(--primary-pink);
-            color: var(--dark-pink);
-            border-radius: 25px;
-            padding: 10px 25px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .btn-outline-secondary:hover {
-            background: var(--primary-pink);
-            color: white;
-            border-color: var(--primary-pink);
-        }
-
         .social-btn {
             display: inline-flex;
             align-items: center;
@@ -122,14 +109,42 @@
             text-decoration: none;
             background: white;
             color: var(--dark-pink);
+            position: relative;
         }
 
         .social-btn:hover {
-            background: var(--soft-pink);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(255, 182, 193, 0.3);
             text-decoration: none;
-            border-color: var(--primary-pink);
+        }
+
+        .social-btn-google {
+            border-color: var(--google-red);
+            color: var(--google-red);
+        }
+
+        .social-btn-google:hover {
+            background: var(--google-red);
+            color: white;
+            border-color: var(--google-red);
+        }
+
+        .social-btn-github {
+            border-color: var(--github-black);
+            color: var(--github-black);
+        }
+
+        .social-btn-github:hover {
+            background: var(--github-black);
+            color: white;
+            border-color: var(--github-black);
+        }
+
+        .social-providers {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-floating {
@@ -204,6 +219,13 @@
         .divider::after {
             margin-left: .5em;
         }
+
+        .social-login-text {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -234,25 +256,21 @@
                 <form method="post" action="{% url 'account_login' %}">
                     {% csrf_token %}
                     
-                    {% if socialaccount_providers %}
-                    <div class="text-center mb-4">
-                        <p class="mb-3">Sign in with:</p>
-                        <div class="d-flex justify-content-center gap-3">
-                            {% if 'google' in socialaccount_providers %}
-                            <a href="{% provider_login_url 'google' %}" class="social-btn">
-                                <i class="fab fa-google fa-lg"></i>
-                            </a>
-                            {% endif %}
-                            {% if 'github' in socialaccount_providers %}
-                            <a href="{% provider_login_url 'github' %}" class="social-btn">
-                                <i class="fab fa-github fa-lg"></i>
-                            </a>
-                            {% endif %}
-                        </div>
+                    <!-- Social Login Buttons -->
+                    <div class="social-login-text">Sign in with social accounts:</div>
+                    <div class="social-providers">
+                        <!-- Google Login -->
+                        <a href="{% provider_login_url 'google' %}" class="social-btn social-btn-google" title="Sign in with Google">
+                            <i class="fab fa-google fa-lg"></i>
+                        </a>
+                        
+                        <!-- GitHub Login -->
+                        <a href="{% provider_login_url 'github' %}" class="social-btn social-btn-github" title="Sign in with GitHub">
+                            <i class="fab fa-github fa-lg"></i>
+                        </a>
                     </div>
 
-                    <div class="divider">or</div>
-                    {% endif %}
+                    <div class="divider">or continue with email</div>
 
                     <!-- Username / Email -->
                     <div class="form-floating mb-3">
@@ -304,29 +322,24 @@
 
             <!-- Register tab -->
             <div class="tab-pane fade" id="register" role="tabpanel">
-                <!-- FIXED: Use the actual AllAuth signup URL and proper form -->
                 <form method="post" action="{% url 'account_signup' %}">
                     {% csrf_token %}
                     
-                    {% if socialaccount_providers %}
-                    <div class="text-center mb-4">
-                        <p class="mb-3">Sign up with:</p>
-                        <div class="d-flex justify-content-center gap-3">
-                            {% if 'google' in socialaccount_providers %}
-                            <a href="{% provider_login_url 'google' process='signup' %}" class="social-btn">
-                                <i class="fab fa-google fa-lg"></i>
-                            </a>
-                            {% endif %}
-                            {% if 'github' in socialaccount_providers %}
-                            <a href="{% provider_login_url 'github' process='signup' %}" class="social-btn">
-                                <i class="fab fa-github fa-lg"></i>
-                            </a>
-                            {% endif %}
-                        </div>
+                    <!-- Social Registration Buttons -->
+                    <div class="social-login-text">Sign up with social accounts:</div>
+                    <div class="social-providers">
+                        <!-- Google Signup -->
+                        <a href="{% provider_login_url 'google' process='signup' %}" class="social-btn social-btn-google" title="Sign up with Google">
+                            <i class="fab fa-google fa-lg"></i>
+                        </a>
+                        
+                        <!-- GitHub Signup -->
+                        <a href="{% provider_login_url 'github' process='signup' %}" class="social-btn social-btn-github" title="Sign up with GitHub">
+                            <i class="fab fa-github fa-lg"></i>
+                        </a>
                     </div>
 
-                    <div class="divider">or</div>
-                    {% endif %}
+                    <div class="divider">or sign up with email</div>
 
                     <!-- Username -->
                     <div class="form-floating mb-3">
@@ -393,6 +406,12 @@
                 const registerTab = new bootstrap.Tab(document.getElementById('register-tab'));
                 registerTab.show();
             {% endif %}
+
+            // Add smooth scrolling for anchor links
+            if (window.location.hash === '#register') {
+                const registerTab = new bootstrap.Tab(document.getElementById('register-tab'));
+                registerTab.show();
+            }
         });
     </script>
 </body>

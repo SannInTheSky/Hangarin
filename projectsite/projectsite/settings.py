@@ -139,6 +139,7 @@ SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'  # Changed from 'optional' to 'none'
 SOCIALACCOUNT_EMAIL_REQUIRED = False  # Changed from True to False
 
 # Social Account Providers
+# Social Account Providers - REMOVE THE APP CONFIGURATION
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
@@ -148,22 +149,13 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         },
-        'APP': {
-            'client_id': os.getenv('GOOGLE_CLIENT_ID', ''),
-            'secret': os.getenv('GOOGLE_CLIENT_SECRET', ''),
-            'key': ''
-        }
+        'OAUTH_PKCE_ENABLED': True,
     },
     'github': {
         'SCOPE': [
             'user',
             'email',
         ],
-        'APP': {
-            'client_id': os.getenv('GITHUB_CLIENT_ID', ''),
-            'secret': os.getenv('GITHUB_CLIENT_SECRET', ''),
-            'key': ''
-        }
     }
 }
 

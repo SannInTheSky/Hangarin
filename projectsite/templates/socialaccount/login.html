@@ -21,6 +21,8 @@
             --lavender: #e6e6fa;
             --mint: #f0fff0;
             --text-color: #5a5a5a;
+            --google-red: #db4437;
+            --github-black: #333333;
         }
         
         body {
@@ -107,13 +109,23 @@
             align-items: center;
             background: linear-gradient(135deg, var(--soft-pink) 0%, var(--primary-pink) 100%);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            margin: 10px 0;
+            padding: 12px 20px;
+            border-radius: 25px;
+            margin: 15px 0;
+            font-size: 1.1rem;
         }
 
         .provider-badge i {
-            margin-right: 8px;
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+
+        .provider-google {
+            background: linear-gradient(135deg, var(--google-red) 0%, #c1351d 100%);
+        }
+
+        .provider-github {
+            background: linear-gradient(135deg, var(--github-black) 0%, #000000 100%);
         }
     </style>
 </head>
@@ -125,7 +137,7 @@
         
         <h3 class="mb-4" style="color: var(--dark-pink);">Confirm Sign In</h3>
         
-        <div class="provider-badge">
+        <div class="provider-badge {% if provider.name == 'Google' %}provider-google{% elif provider.name == 'GitHub' %}provider-github{% endif %}">
             <i class="fab fa-{{ provider.name|lower }}"></i>
             <strong>{{ provider.name }}</strong>
         </div>
@@ -137,6 +149,11 @@
                 <i class="fas fa-info-circle me-2"></i>
                 You are connecting your {{ provider.name }} account to your existing Hangarin account.
             </div>
+        {% else %}
+            <div class="alert alert-info mb-4">
+                <i class="fas fa-info-circle me-2"></i>
+                This will create a new account or sign you into an existing one.
+            </div>
         {% endif %}
         
         <form method="post">
@@ -147,7 +164,7 @@
         </form>
         
         <a href="{% url 'account_login' %}" class="btn btn-outline-secondary w-100">
-            <i class="fas fa-times me-2"></i>Cancel
+            <i class="fas fa-arrow-left me-2"></i>Back to Login
         </a>
         
         {% if form.errors %}
